@@ -30,9 +30,10 @@ def _resolve(path: str) -> str:
 
 
 # Root directory that all user-provided paths must resolve under.
-# Defaults to the working directory at import time.  Override via
-# ``set_safe_root`` if needed (e.g. in tests).
-_SAFE_ROOT: str = _resolve(os.getcwd())
+# Reads ACESTEP_SAFE_ROOT from the environment, falling back to the
+# working directory at import time.  Override via ``set_safe_root``
+# if needed (e.g. in tests).
+_SAFE_ROOT: str = _resolve(os.environ.get("ACESTEP_SAFE_ROOT", os.getcwd()))
 
 
 def set_safe_root(root: str) -> None:

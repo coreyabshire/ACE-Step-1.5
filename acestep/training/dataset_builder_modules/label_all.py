@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import Any, Callable, List, Optional, Tuple
 
 from .models import AudioSample
 
@@ -14,9 +14,20 @@ class LabelAllMixin:
         transcribe_lyrics: bool = False,
         skip_metas: bool = False,
         only_unlabeled: bool = False,
-        progress_callback=None,
+        chunk_size: int = 16,
+        batch_size: int = 1,
+        progress_callback: Optional[Callable[[str], None]] = None,
+        sample_labeled_callback: Optional[Callable[[int, Any, str], None]] = None,
     ) -> Tuple[List[AudioSample], str]:
-        """Label all samples in the dataset."""
+        """Label all samples in the dataset.
+
+        Args:
+            chunk_size: Chunk size for batch audio encoding (reserved for future use).
+            batch_size: Batch size for batch audio encoding (reserved for future use).
+            progress_callback: Called with progress messages during labeling.
+            sample_labeled_callback: Called after each sample is labeled with
+                (sample_index, sample, status_message).
+        """
         if not self.samples:
             return [], "❌ No samples to label. Please scan a directory first."
 
@@ -52,6 +63,9 @@ class LabelAllMixin:
                 success_count += 1
             else:
                 fail_count += 1
+
+            if sample_labeled_callback:
+                sample_labeled_callback(i, sample, status)
 
         status_msg = f"✅ Labeled {success_count}/{total} samples"
         if fail_count > 0:

@@ -89,13 +89,12 @@ class LabelSingleMixin:
                         sample.keyscale = metadata.get("keyscale", "")
                     sample.timesignature = metadata.get("timesignature", "")
 
-                sample.language = metadata.get("vocal_language", "unknown")
+                sample.language = metadata.get("language", "unknown")
 
                 llm_lyrics = metadata.get("lyrics", "")
 
                 if sample.is_instrumental:
                     sample.lyrics = "[Instrumental]"
-                    sample.language = "unknown"
                     sample.formatted_lyrics = ""
                     status_suffix = "(instrumental)"
                 elif transcribe_lyrics:
