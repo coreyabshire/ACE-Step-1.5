@@ -21,9 +21,5 @@ done
 
 # Prepend so bundled libs win over system /usr/local/cuda
 export LD_LIBRARY_PATH="${NVIDIA_LIBS}${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
-
-# Widen the safe-path root so ACE-Step can access HitMaker data dirs
-export ACESTEP_SAFE_ROOT="/mnt/c/Users/corey/Music"
-
 cd "$SCRIPT_DIR"
 exec uv run acestep-api "$@"
