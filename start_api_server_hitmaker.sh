@@ -21,5 +21,10 @@ done
 
 # Prepend so bundled libs win over system /usr/local/cuda
 export LD_LIBRARY_PATH="${NVIDIA_LIBS}${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+
+# Must be set before Python imports path_safety.py (reads at import time,
+# before .env is loaded by api_server.py)
+export ACESTEP_SAFE_ROOT="/mnt/c/Users/corey/Music"
+
 cd "$SCRIPT_DIR"
 exec uv run acestep-api "$@"
