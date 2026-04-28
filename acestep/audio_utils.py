@@ -114,7 +114,7 @@ def normalize_audio(audio_data: Union[torch.Tensor, np.ndarray], target_db: floa
 class AudioSaver:
     """Audio saving and transcoding utility class"""
 
-    MP3_DEFAULT_BITRATE = "128k"
+    MP3_DEFAULT_BITRATE = "320k"
     MP3_ALLOWED_BITRATES = {"128k", "192k", "256k", "320k"}
     MP3_DEFAULT_SAMPLE_RATE = 48000
     MP3_ALLOWED_SAMPLE_RATES = {44100, 48000}
